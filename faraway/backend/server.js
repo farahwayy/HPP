@@ -6,6 +6,49 @@ const jwt = require('jsonwebtoken')
 const passport = require('passport')
 const { Strategy: GoogleStrategy } = require('passport-google-oauth20');
 
+//Database
+const mongoose = require('mongoose')
+
+const uri = "mongodb+srv://pnestrella:eEl6PcilbFMRXZKF@cluster0.axyt3tr.mongodb.net/medicalRecords?retryWrites=true&w=majority&appName=Cluster0";
+
+const mrDB = mongoose.createConnection(
+    "mongodb+srv://pnestrella:eEl6PcilbFMRXZKF@cluster0.axyt3tr.mongodb.net/medicalRecords?retryWrites=true&w=majority&appName=Cluster0",
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      }
+)
+
+const patientSchema = new mongoose.Schema({
+    patientId: String,
+    fullName: String,
+    dateOfBirth: Date,
+    gender: String,
+    contactNumber: String,
+    email: String,
+    address: String,
+    emergencyContact: {
+      name: String,
+      relationship: String,
+      phone: String
+    }
+  });
+
+const Patient = mrDB.model('Patient', patientSchema, 'patientInfo');
+
+const getPatient = async () => {
+    try{
+        await mrDB.asPromise();;;
+        const patient = await Patient.find();;
+        return patient
+    }catch(err){
+        console.log(err);
+    }
+}
+
+getPatient().then((res) => console.log(res))
+  
+
 
 const port = process.env.PORT || 7000
 
@@ -14,6 +57,8 @@ app.use(cors({
     credentials: false, 
   }));
 
+
+//Use method
 app.use(cors());
 
 
@@ -38,6 +83,7 @@ passport.use(new GoogleStrategy({
   }
 ));
 
+//get Methods
 app.get('/verify', (req,res) => {
     console.log("called");
     const authHeader = req.headers['authorization']
@@ -72,6 +118,8 @@ app.get('/login/callback', passport.authenticate('google', {session: false, fail
         }
 )
 
+
+//listen methods
 app.listen(port, () => {
     console.log(`Listening to port: ${port}`);
 })
