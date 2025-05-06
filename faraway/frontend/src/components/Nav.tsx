@@ -19,8 +19,8 @@ const Nav = ({ user }) => {
           alt="placeholderProfile" 
           className='w-24 h-24 rounded-full mb-3'
         />
-        <h1 className='font-bold text-lg'>{patient.name}</h1>
-        <h2 className='text-sm'>Patient</h2>
+        <h1 className='font-bold text-lg'>{patient?.name}</h1>
+        <h2 className='text-sm text-gray-300'>Patient</h2>
       </div>
 
       
@@ -65,15 +65,15 @@ const Nav = ({ user }) => {
                 href="#" 
                 className='flex items-center gap-3 px-4 py-2 rounded hover:bg-[#00446b] transition text-white'
                 >
-                <Icon icon="material-symbols:dashboard" className="w-5" />
+                <Icon icon="iconamoon:shield-yes-fill" className="w-5" />
                 <span>Dashboard</span>
                 </a>
                 <a 
                 href="#" 
                 className='flex items-center gap-3 px-4 py-2 rounded hover:bg-[#00446b] transition text-white'
                 >
-                <Icon icon="material-symbols:prescriptions" className="w-5" />
-                <span>Medical Record</span>
+                <Icon icon="ic:baseline-settings" className="w-5" />
+                <span>Settings</span>
                 </a>
             </nav>
         </div>
