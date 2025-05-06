@@ -8,7 +8,7 @@ import ProtectedRoute from './utils/ProtectedRoute';
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="flex h-screen justify-center items-center">
+      <div>
         <Routes>
           <Route path='/' element={<Index />} />
           <Route path='login' element={<Login />} ></Route>
