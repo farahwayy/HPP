@@ -66,7 +66,7 @@ const Nav = ({ user }) => {
                 className='flex items-center gap-3 px-4 py-2 rounded hover:bg-[#00446b] transition text-white'
                 >
                 <Icon icon="iconamoon:shield-yes-fill" className="w-5" />
-                <span>Dashboard</span>
+                <span>Help Center</span>
                 </a>
                 <a 
                 href="#" 
