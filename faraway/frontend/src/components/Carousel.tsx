@@ -56,7 +56,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
             <img
               src={images[getPrevIndex()].url}
               alt={images[getPrevIndex()].alt}
-              className="lg:h-100 md:h-64 sm:48 w-auto object-cover"
+              className="h-48 lg:h-100 md:h-64 w-auto object-cover"
             />
           </div>
 
@@ -65,7 +65,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
             <img
               src={images[currentIndex].url}
               alt={images[currentIndex].alt}
-              className="lg:h-120 md:h-80 sm:54 w-auto object-cover"
+              className="h-50 lg:h-90 md:h-60 w-auto object-cover"
             />
           </div>
 
@@ -74,7 +74,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
             <img
               src={images[getNextIndex()].url}
               alt={images[getNextIndex()].alt}
-              className="lg:h-100 md:h-64 sm:48 w-auto object-cover"
+              className="h-48 lg:h-100 md:h-64 w-auto object-cover"
             />
           </div>
         </div>
