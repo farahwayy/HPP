@@ -1,41 +1,48 @@
-import React from 'react'
-import Header from '../components/Header'
-import Nav from '../components/Nav'
+import React, { useState, useEffect } from 'react';
+import { jwtDecode } from 'jwt-decode';
+import Header from '../components/Header';
+import Nav from '../components/Nav';
 import placeholderProfile from '../assets/placeholderProfile.png';
 import Button from '../components/Button';
+import useDecodedToken from '../utils/DecodeToken';
 
 const Profile = () => {
+    const patient = useDecodedToken();
+
+    if (!patient) {
+      return <div className="p-10">Loading profile...</div>;
+    }
+
   return (
     <div className='flex flex-col min-h-screen'>
-        <header>
-            <Header />
-        </header>
-        <div className='flex flex-1'>
-            <Nav />
-            <div className='flex-1'>
-                <div className='border-b border-[#9E9E9E] p-6'>
-                    <h1 className='text-5xl text-[#005F92] font-semibold'>Patient Profile</h1>
-                    <div className='flex justify-between m-10'>
-                        <div className='flex items-center gap-10'>
-                            <img 
-                                src={placeholderProfile} 
-                                alt="placeholderProfile"
-                                className='w-50 h-50 rounded-full mb-3' 
-                                />
-                            <div className='flex flex-col'>
-                                <h1 className='text-3xl font-semibold text-[#404040]'>Patient Name</h1>
-                                <h3 className='text-[#525252]'>Patient ID: PT-20250001 | Male, 44</h3>
-                            </div>
-
-                        </div>
-                        <div className='flex items-center'>
-                            <Button text={'Edit Profile'}></Button>
-                        </div>
-                    </div>
+      <header>
+        <Header />
+      </header>
+      <div className='flex flex-1'>
+        <Nav user={patient} />
+        <div className='flex-1'>
+          <div className='border-b border-[#9E9E9E] p-6'>
+            <h1 className='text-5xl text-[#005F92] font-semibold'>Patient Profile</h1>
+            <div className='flex justify-between m-10'>
+              <div className='flex items-center gap-10'>
+                <img 
+                  src={placeholderProfile} 
+                  alt="placeholderProfile"
+                  className='w-50 h-50 rounded-full mb-3' 
+                />
+                <div className='flex flex-col'>
+                  <h1 className='text-3xl font-semibold text-[#404040]'>{patient.name}</h1>
+                  <h3 className='text-[#525252]'>Patient ID: PT-20250001 | Male, 44</h3>
                 </div>
-                
-                {/* Contact Info */}
-                <div className='flex flex-col items-center justify-center p-10 gap-10'>
+              </div>
+              <div className='flex items-center'>
+                <Button text={'Edit Profile'}></Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Info */}
+          <div className='flex flex-col items-center justify-center p-10 gap-10'>
                     <div className="bg-gray-50 p-6 rounded-lg w-full">
                         <h2 className="text-2xl text-gray-900 mb-4">
                             Contact Information
@@ -87,11 +94,10 @@ const Profile = () => {
                         </div>
                     </div>
                 </div>
-
-            </div>
         </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

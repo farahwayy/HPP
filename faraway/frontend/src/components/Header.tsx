@@ -15,7 +15,6 @@ const Header = ({ user }) => {
       const timeString = now.toLocaleTimeString('en-PH', {
         hour: '2-digit',
         minute: '2-digit',
-        second: '2-digit',
       });
       const dateString = now.toLocaleDateString('en-PH', {
         year: 'numeric',
@@ -25,7 +24,7 @@ const Header = ({ user }) => {
       setCurrentTime(timeString);
       setCurrentDate(dateString);
     };
-
+  
     updateDateTime();
     const interval = setInterval(updateDateTime, 1000);
     return () => clearInterval(interval);
@@ -36,7 +35,7 @@ const Header = ({ user }) => {
   };
 
   return (
-    <div className="flex justify-between items-center border border-[#C0C6CE] px-10 py-6 mx-auto flex-wrap">
+    <div className="flex justify-between items-center border-b border-[#C0C6CE] px-10 py-6 mx-auto flex-wrap">
       <div>
         <img src={LOGO} alt="logo" className="h-10" />
       </div>
@@ -55,8 +54,8 @@ const Header = ({ user }) => {
           {dropdownVisible && (
             <div className="absolute mt-2 right-0 bg-[#005F92] shadow-lg p-4 rounded-md w-48 text-white z-10">
               <button
-                onClick={() => navigate('/profile', { state: { user } })}
-                className='w-full text-left py-2 px-4 hover:bg-[#00446b]'
+                onClick={() => navigate('/profile' )}
+                className='w-full text-left py-2 px-4 hover:bg-[#00446b] hover:cursor-pointer'
               >
                 Profile
               </button>
@@ -64,9 +63,9 @@ const Header = ({ user }) => {
                 onClick={() => {
                   localStorage.removeItem('token');
                   alert("Logging out....");
-                  window.location.reload();
+                  navigate('/');
                 }}
-                className='w-full text-left py-2 px-4 hover:bg-[#00446b]'
+                className='w-full text-left py-2 px-4 hover:bg-[#00446b] hover:cursor-pointer'
               >
                 Logout
               </button>

@@ -37,23 +37,23 @@ const Index = () => {
   ];
 
   return (
-    <div className="flex w-full min-h-screen">
+    <div className="flex-row md:flex w-full min-h-screen">
       <div className="flex flex-col w-[65%] justify-center items-center">
         <div className='flex w-full justify-center items-center'>
           <img 
             src={LOGO} 
             alt='logo' 
-            className='w-100 md:w-70 sm:w-50'
+            className='w-50 md:60'
             />
         </div>
         <ImageCarousel 
         images={images}
         />
         <div className='w-[50%]'>
-          <h3 className='flex-wrap text-3xl md:text-2xl sm:text-lg text-center'>Stay Informed, Stay Connected, And Stay In Control Of Your Healthcare Experience. Our Patient Portal Brings Convenience, Clarity, And Care Together In One Place.</h3>
+          <h3 className='flex text-sm lg:text-xl xl:text-2xl text-center'>Stay Informed, Stay Connected, And Stay In Control Of Your Healthcare Experience. Our Patient Portal Brings Convenience, Clarity, And Care Together In One Place.</h3>
         </div>
       </div>
-      <div className='flex flex-col w-[35%] bg-[#005F92] justify-center items-center'>
+      <div className='flex p-10 md:flex-col md:w-[35%] bg-[#005F92] justify-center items-center'>
         <div className='flex flex-col gap-5'>
           <h1 className='text-white font-bold text-3xl'>Sign In</h1>
           <Button 
