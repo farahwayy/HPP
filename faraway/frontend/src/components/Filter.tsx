@@ -5,18 +5,20 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./ui/select"; // adjust path as needed
+} from "./ui/select"; // adjust the path if needed
 
-const Filter = ({ value = "light", onChange }) => {
+const Filter = ({ value, onChange, options = [], placeholder = "Select an option" }) => {
   return (
     <Select onValueChange={onChange} value={value}>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue /> {/* Removed placeholder */}
+      <SelectTrigger className="w-[220px]">
+        <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="light">Light</SelectItem>
-        <SelectItem value="dark">Dark</SelectItem>
-        <SelectItem value="system">System</SelectItem>
+        {options.map((option) => (
+          <SelectItem key={option.value} value={option.value}>
+            {option.label}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   );
