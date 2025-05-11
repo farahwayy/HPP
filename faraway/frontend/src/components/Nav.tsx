@@ -15,8 +15,8 @@ const Nav = ({ user }) => {
   const isActive = (path) => location.pathname === path;
 
   const linkBaseClasses = 'flex items-center gap-3 px-4 py-2 rounded transition text-white';
-  const activeClasses = 'bg-[#49C0FF]'; 
-  const hoverClasses = 'hover:bg-[#49C0FF]';
+  const activeClasses = 'bg-[#0077B6]'; 
+  const hoverClasses = 'hover:bg-[#0077B6]';
 
   return (
     <aside className='w-64 bg-[#005F92] text-white min-h-full'>

@@ -8,51 +8,50 @@ import {
   TableCell,
 } from "@/components/ui/table";
 
-const MedicalTable = ({ sortOrder, typeFilter }) => {
-  const [selectedMed, setSelectedMed] = useState(null);
+const MedicalTable = ({ sortOrder, typeFilter, onViewDetails }) => {
 
-  const data = [
+  const PatientData = [
     {
       type: "Lab Results",
       title: "Blood Work Panel",
       date: "May 6, 2025",
-      status: "Complete",
+      status: "Completed",
     },
     {
       type: "Imaging",
       title: "Chest X-Ray",
       date: "Feb 1, 2025",
-      status: "Complete",
+      status: "Completed",
     },
     {
       type: "Visit Notes",
       title: "Annual Physical",
       date: "Jan 20, 2025",
-      status: "Complete",
+      status: "Completed",
     },
     {
       type: "Vaccination",
       title: "Flu Vaccine",
       date: "",
-      status: "Complete",
+      status: "Completed",
     },
     {
       type: "Lab Results",
       title: "Diabetes Test",
       date: "",
-      status: "Complete",
+      status: "Completed",
     },
     {
       type: "Specialist",
       title: "OB-GYN Consultation",
       date: "",
-      status: "Complete",
+      status: "Completed",
     },
     {
       type: "Visit Notes",
       title: "Follow-up Appointment",
       date: "",
-      status: "Complete",
+      status: "Completed",
     },
     {
       type: "Lab Results",
@@ -63,8 +62,8 @@ const MedicalTable = ({ sortOrder, typeFilter }) => {
   ];
 
   const filteredData = typeFilter === "all"
-    ? data
-    : data.filter((item) => {
+    ? PatientData
+    : PatientData.filter((item) => {
         const typeMap = {
           lab: "Lab Results",
           visitnotes: "Visit Notes",
@@ -81,13 +80,6 @@ const MedicalTable = ({ sortOrder, typeFilter }) => {
     return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
   });
 
-  const typeStyles = {
-    "Lab Results" : "bg-[#0077B6] text-[#D2E6EE]",
-    "Imaging" : "bg-[#9B5134] text-[#E6DAD5]",
-    "Visit Notes" : "bg-[#F1F5BD] text-[#48482B]",
-    "Specialist" : "bg-[#FBD4E0] text-[#FF1B60]",
-    "Vaccination" : "bg-[#E5CAE7] text-[#3B3A1D]"
-  }
 
   return (
     <Table className="border border-[#DCDCDC]">
@@ -105,7 +97,7 @@ const MedicalTable = ({ sortOrder, typeFilter }) => {
           <TableHead className="text-[#525252] text-lg font-extralight">
             STATUS
           </TableHead>
-          <TableHead className="text-right text-[#525252] text-lg font-extralight pr-12">
+          <TableHead className="text-[#525252] text-lg font-extralight pr-12">
             ACTION
           </TableHead>
         </TableRow>
@@ -141,17 +133,17 @@ const MedicalTable = ({ sortOrder, typeFilter }) => {
             <TableCell>
                 <span
                   className={`px-3 py-1 rounded-full text-sm font-medium inline-block ${
-                    item.status === "Complete"
+                    item.status === "Completed"
                       ? "bg-[#D2E6EE] text-[#39614B]"
                       : "bg-red-100 text-red-700"
                   }`}
                 >
-                  {item.status === "Complete" ? "Complete" : "Not Complete"}
+                  {item.status === "Completed" ? "Completed" : "Not Complete"}
                 </span>
             </TableCell>
             <TableCell
-              className="text-right pr-10 text-[#005F92] font-medium cursor-pointer"
-              onClick={() => setSelectedMed(item)}
+              className=" pr-10 text-[#005F92] font-medium cursor-pointer"
+              onClick={() => onViewDetails(item)}
             >
               View Details
             </TableCell>
