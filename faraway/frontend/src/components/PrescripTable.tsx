@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableHeader,
@@ -8,50 +8,76 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import PrescriptionModal from "./PrescripModal";
+import axios from "axios";
+import { faL } from "@fortawesome/free-solid-svg-icons";
+import useDecodedToken from "@/utils/DecodeToken";
+import { jwtDecode } from "jwt-decode";
 
 const PrescripTable = ({ sortOrder }) => {
   const [selectedPrescription, setSelectedPrescription] = useState(null);
+  const [prescription, setPrescription] = useState([])
+  const [loading, setLoading] = useState(false);
 
-  const data = [
-    {
-      doctor: "Dra. Toni Fowler",
-      date: "May 6, 2025",
-      name: "Mark Doe",
-      age: 44,
-      sex: "M",
-      meds: [
-        { name: "Paracetamol", dosage: "500mg", frequency: "0x/Day", qty: 0 },
-        { name: "Neozep", dosage: "500mg", frequency: "0x/Day", qty: 0 },
-      ],
-    },
-    {
-      doctor: "Dr. Patrick",
-      date: "May 4, 2025",
-      name: "Jane Smith",
-      age: 31,
-      sex: "F",
-      meds: [
-        { name: "Ibuprofen", dosage: "200mg", frequency: "2x/Day", qty: 10 },
-      ],
-    },
-    {
-      doctor: "Dr. Isaiah",
-      date: "April 9, 2025",
-      name: "John Appleseed",
-      age: 29,
-      sex: "M",
-      meds: [
-        { name: "Vitamin C", dosage: "1000mg", frequency: "1x/Day", qty: 30 },
-      ],
-    },
-  ];
 
-  // Sort prescriptions by date based on sortOrder
+
+  useEffect(() => {
+  const getData = async () => {
+        setLoading(true)
+
+      const patient = jwtDecode(localStorage.getItem('token'))
+
+
+      try{
+        const data = await axios.get('http://localhost:7000/prescription',{
+          params: {
+            email:patient.email
+          }
+        });
+
+        setPrescription(data.data.data)
+
+      }catch(err){
+        console.log(err, 'Error fetching prescription data')
+        setLoading(false)
+      }finally{
+        setLoading(false)
+      }
+    }
+        console.log('HELOOOO')
+    getData()
+
+  },[])
+
+ 
+  console.log(prescription)
+const filteredPrescription = prescription.map(
+  ({ doctorInformation, dateOfPrescription, name, age, gender, inscription }) => ({
+    doctor: doctorInformation,          
+    date: dateOfPrescription,           
+    name,                                
+    age,                                  
+    gender,                              
+    meds: inscription                    
+  })
+);
+
+const data = filteredPrescription;
+
+console.log(data);
+
   const sortedData = [...data].sort((a, b) => {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
     return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
   });
+
+  if(loading == true){
+    return <><h1>Loading....</h1></>
+  }
+
+  if(prescription.length === 0){
+    return <><h1>No prescription to show</h1></>
+  }
 
   return (
     <>
