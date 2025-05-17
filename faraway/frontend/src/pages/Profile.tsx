@@ -5,9 +5,28 @@ import Nav from '../components/Nav';
 import placeholderProfile from '../assets/placeholderProfile.png';
 import Button from '../components/Button';
 import useDecodedToken from '../utils/DecodeToken';
+import axios from 'axios';
+
 
 const Profile = () => {
-    const patient = useDecodedToken();
+    const [profile, setProfile] = useState([{}])
+
+      const patient = jwtDecode(localStorage.getItem('token'))
+
+    useEffect(() => {
+      const getPrms = async () => {
+        const data = await axios.get('http://localhost:7000/profile', {
+          params: {
+            email: patient.email
+          }
+        })
+
+        setProfile(data.data.data)
+
+      }
+
+      getPrms();
+    },[])
 
     if (!patient) {
       return <div className="p-10">Loading profile...</div>;
@@ -15,15 +34,21 @@ const Profile = () => {
 
     const patientData = {
       id: "PT-20250001",
-      sex: "M",
-      age: "44"
+      sex: profile.gender,
+      age: profile.age
     }
 
     const ContactInfo = {
       phone: "09193756332",
-      email: "markdoe00@gmail.com",
-      address: "Barangay Calauag, Naga City",
-      birth: "May 12, 1980"
+      email: patient.email,
+      address: profile.address,
+      birth: profile.dateOfBirth
+  ? new Date(profile.dateOfBirth).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+    })
+  : 'N/A'
     }
 
     const MedInfo = {

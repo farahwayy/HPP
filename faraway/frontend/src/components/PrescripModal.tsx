@@ -41,7 +41,7 @@ const PrescriptionModal = ({ isOpen, onClose, prescription }) => {
         <div className="flex justify-between text-sm mb-4">
           <p>Name: <span className="border-b border-black ml-2">{patient.name}</span></p>
           <p>Age: <span className="border-b border-black ml-2">{prescription.age}</span></p>
-          <p>Sex: <span className="border-b border-black ml-2">{prescription.sex}</span></p>
+          <p>Sex: <span className="border-b border-black ml-2">{prescription.gender}</span></p>
         </div>
 
         <img src={Rx} alt="Rx symbol" className="h-10 w-auto mb-2" />

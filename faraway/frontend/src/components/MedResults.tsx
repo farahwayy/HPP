@@ -11,33 +11,6 @@ import { ArrowLeft } from "lucide-react";
 
 const MedResults = ({ onBack, PatientData }) => {
 
-const sampleResults = [
-  {
-    test: "Hemoglobin",
-    result: "14.2 g/dL",
-    normalRange: "13.5–17.5 g/dL",
-    status: "Normal",
-  },
-  {
-    test: "White Blood Cells",
-    result: "7.2 10^3/µL",
-    normalRange: "4.5–11.0 10^3/µL",
-    status: "Normal",
-  },
-  {
-    test: "Total Cholesterol",
-    result: "215 mg/dL",
-    normalRange: "< 200 mg/dL",
-    status: "High",
-  },
-  {
-    test: "HDL Cholesterol",
-    result: "55 mg/dL",
-    normalRange: "> 40 mg/dL",
-    status: "Normal",
-  },
-];
-
   return (
     <div>
         {/* HEADER PART */}
@@ -117,18 +90,7 @@ const sampleResults = [
                         </TableHead>
                       </TableRow>
                 </TableHeader>
-                <TableBody>
-                    {sampleResults.map((item, index) => (
-                        <TableRow key={index} className="border-[#DCDCDC] text-[#525252]">
-                            <TableCell className="font-bold">{item.test}</TableCell>
-                            <TableCell>{item.result}</TableCell>
-                            <TableCell>{item.normalRange}</TableCell>
-                            <TableCell className={item.status === "High" ? "text-red-500" : "text-green-600"}>
-                                {item.status}
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
+   
             </Table>
             <div className="mt-5">
                 <span className="text-[18px]">Doctor's Notes</span>
