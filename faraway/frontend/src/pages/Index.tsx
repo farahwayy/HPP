@@ -1,4 +1,3 @@
-import React from 'react'
 import Button from '../components/Button'
 import { ImageCarousel } from '../components/Carousel'
 
@@ -15,23 +14,23 @@ const Index = () => {
 
   const images = [
     {
-      url: [IMG1],
+      url: IMG1,
       alt: 'IMG1',
     },
     {
-      url: [IMG2],
+      url: IMG2,
       alt: 'IMG2',
     },
     {
-      url: [IMG3],
+      url: IMG3,
       alt: 'IMG3',
     },
     {
-      url: [IMG4],
+      url: IMG4,
       alt: 'IMG4',
     },
     {
-      url: [IMG5],
+      url: IMG5,
       alt: 'IMG5',
     },
   ];

@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, ReactElement } from 'react'
 import { Navigate } from 'react-router-dom'
 import axios from 'axios';
+import { User } from '@/types';
 
-const ProtectedRoute = ({children}) => {
+interface ProtectedRouteProps {
+  children: ReactElement<{ user: User }>;
+}
+
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     const token = localStorage.getItem('token');
     console.log("protected route is called")
 
     const [isAuth, setIsAuth] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState({})
-
+    const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
         const VerifyToken = async () => {
@@ -49,8 +53,7 @@ const ProtectedRoute = ({children}) => {
         return <Navigate to={'/'} replace />
     }
  
-
-  return React.cloneElement(children, {user});
+    return React.cloneElement(children, { user: user as User });
 }
 
 export default ProtectedRoute

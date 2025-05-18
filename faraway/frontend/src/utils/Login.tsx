@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const Login = () => {
-  const [user, setUser] = useState({ name: 'Pedro', email: 'pedro@gmail.com' });
+  const [user] = useState({ name: 'Pedro', email: 'pedro@gmail.com' });
 
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);

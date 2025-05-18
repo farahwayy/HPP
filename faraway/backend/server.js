@@ -92,6 +92,7 @@ passport.use(new GoogleStrategy({
 ));
 
 //get Methods
+
 app.get('/verify', (req, res) => {
     console.log("called");
     const authHeader = req.headers['authorization']

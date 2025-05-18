@@ -3,7 +3,16 @@ import LOGO from '../assets/Group 3.png';
 import Rx from '../assets/Vector.png';
 import useDecodedToken from '../utils/DecodeToken';
 
-const PrescriptionModal = ({ isOpen, onClose, prescription }) => {
+interface PrescriptionModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  prescription: {
+    meds: { name: string; dosage: string; frequency: string; qty: string }[];
+    [key: string]: any;
+  };
+}
+
+const PrescriptionModal: React.FC<PrescriptionModalProps> = ({ isOpen, onClose, prescription }) => {
   if (!isOpen || !prescription) return null;
 
   const patient = useDecodedToken();
