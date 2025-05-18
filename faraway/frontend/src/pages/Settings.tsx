@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Nav from '../components/Nav';
 import useDecodedToken from '../utils/DecodeToken';
 import notWorking from '../assets/notworking.png';
+import ChatBot from '@/components/ChatBot';
 
 const Settings = () => {
   const patient = useDecodedToken();
@@ -28,6 +29,7 @@ const Settings = () => {
             </div>
         </main>
       </div>
+      <ChatBot />
     </div>
   );
 };

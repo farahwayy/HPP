@@ -7,6 +7,7 @@ import Filter from '@/components/Filter';
 import { sortOptions, typeOptions } from '@/utils/filterOptions';
 import MedicalTable from '@/components/MedTable';
 import MedResults from '@/components/MedResults';
+import ChatBot from '@/components/ChatBot';
 
 const MedicalRecord = () => {
   const [sortOrder, setSortOrder] = useState("newest");
@@ -76,6 +77,7 @@ const MedicalRecord = () => {
             )}
           </div>
       </div>
+      <ChatBot />
     </div>
   );
 };

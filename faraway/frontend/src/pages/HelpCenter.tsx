@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Nav from '../components/Nav';
 import useDecodedToken from '../utils/DecodeToken';
 import notWorking from '../assets/notworking.png';
-
+import ChatBot from '@/components/ChatBot';
 
 const HelpCenter = () => {
     const patient = useDecodedToken();
@@ -29,6 +29,7 @@ const HelpCenter = () => {
             </div>
         </main>
       </div>
+      <ChatBot />
     </div>
   );
 };

@@ -6,7 +6,7 @@ import placeholderProfile from '../assets/placeholderProfile.png';
 import Button from '../components/Button';
 import useDecodedToken from '../utils/DecodeToken';
 import axios from 'axios';
-
+import ChatBot from '@/components/ChatBot';
 
 const Profile = () => {
     const [profile, setProfile] = useState([{}])
@@ -140,6 +140,7 @@ const Profile = () => {
                 </div>
         </div>
       </div>
+      <ChatBot />
     </div>
   );
 };

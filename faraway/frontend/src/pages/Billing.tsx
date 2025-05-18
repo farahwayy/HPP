@@ -6,6 +6,7 @@ import SearchBar from '../components/SearchBar';
 import Filter from '@/components/Filter';
 import { sortOptions, typeOptions } from '@/utils/filterOptions';
 import MedicalTable from '@/components/BillTable';
+import ChatBot from '@/components/ChatBot';
 
 const BillRecord = () => {
   const [sortOrder, setSortOrder] = useState("newest");
@@ -50,6 +51,7 @@ const BillRecord = () => {
           </div>
         </div>
       </div>
+      <ChatBot />
     </div>
   );
 };
