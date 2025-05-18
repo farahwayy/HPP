@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import placeholderProfile from '../assets/placeholderProfile.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,12 +7,16 @@ import {
   faFilePrescription 
 } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from '@iconify/react';
+import { User } from '@/types';
 
-const Nav = ({ user }) => {
-  const [patient] = useState(user);
+interface NavProps {
+  user: User;
+}
+
+const Nav: React.FC<NavProps> = ({ user }) => {
   const location = useLocation();
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path: string): boolean => location.pathname === path;
 
   const linkBaseClasses = 'flex items-center gap-3 px-4 py-2 rounded transition text-white';
   const activeClasses = 'bg-[#0077B6]'; 
@@ -26,7 +30,7 @@ const Nav = ({ user }) => {
           alt="placeholderProfile" 
           className='w-24 h-24 rounded-full mb-3'
         />
-        <h1 className='font-bold text-lg'>{patient?.name}</h1>
+        <h1 className='font-bold text-lg'>{user.name}</h1>
         <h2 className='text-sm'>Patient</h2>
       </div>
 

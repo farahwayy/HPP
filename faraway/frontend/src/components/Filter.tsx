@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Select,
   SelectContent,
@@ -6,8 +5,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select"; // adjust the path if needed
+import { FilterProps } from '@/types';
 
-const Filter = ({ value, onChange, options = [], placeholder = "Select an option" }) => {
+const Filter = <T extends string>({ value, onChange, options = [], placeholder = "Select an option" }: FilterProps<T>) => {
   return (
     <Select onValueChange={onChange} value={value}>
       <SelectTrigger className="w-[220px]">

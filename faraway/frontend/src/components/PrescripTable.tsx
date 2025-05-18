@@ -9,74 +9,66 @@ import {
 } from "@/components/ui/table";
 import PrescriptionModal from "./PrescripModal";
 import axios from "axios";
-import { faL } from "@fortawesome/free-solid-svg-icons";
-import useDecodedToken from "@/utils/DecodeToken";
 import { jwtDecode } from "jwt-decode";
 
-const PrescripTable = ({ sortOrder }) => {
-  const [selectedPrescription, setSelectedPrescription] = useState(null);
-  const [prescription, setPrescription] = useState([])
+interface Prescription {
+  doctorInformation: string;
+  dateOfPrescription: string;
+  name: string;
+  age: string;
+  gender: string;
+  inscription: { name: string; dosage: string; frequency: string; qty: string }[];
+}
+
+interface PrescripTableProps {
+  sortOrder: 'newest' | 'oldest';
+}
+
+const PrescripTable: React.FC<PrescripTableProps> = ({ sortOrder }) => {
+  const [selectedPrescription, setSelectedPrescription] = useState<Prescription | null>(null);
+  const [prescription, setPrescription] = useState<Prescription[]>([]);
   const [loading, setLoading] = useState(false);
 
-
-
   useEffect(() => {
-  const getData = async () => {
-        setLoading(true)
-
-      const patient = jwtDecode(localStorage.getItem('token'))
-
-
-      try{
-        const data = await axios.get('http://localhost:7000/prescription',{
-          params: {
-            email:patient.email
-          }
-        });
-
-        setPrescription(data.data.data)
-
-      }catch(err){
-        console.log(err, 'Error fetching prescription data')
-        setLoading(false)
-      }finally{
-        setLoading(false)
+    const getData = async () => {
+      setLoading(true);
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setLoading(false);
+        return;
       }
-    }
-        console.log('HELOOOO')
-    getData()
+      try {
+        const decoded = jwtDecode<{ email?: string }>(token);
+        const email = decoded.email;
+        if (!email) {
+          setLoading(false);
+          return;
+        }
+        const data = await axios.get('http://localhost:7000/prescription', {
+          params: { email }
+        });
+        setPrescription(data.data.data);
+      } catch (err) {
+        console.log(err, 'Error fetching prescription data');
+      } finally {
+        setLoading(false);
+      }
+    };
+    getData();
+  }, []);
 
-  },[])
-
- 
-  console.log(prescription)
-const filteredPrescription = prescription.map(
-  ({ doctorInformation, dateOfPrescription, name, age, gender, inscription }) => ({
-    doctor: doctorInformation,          
-    date: dateOfPrescription,           
-    name,                                
-    age,                                  
-    gender,                              
-    meds: inscription                    
-  })
-);
-
-const data = filteredPrescription;
-
-console.log(data);
-
-  const sortedData = [...data].sort((a, b) => {
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
+  const sortedData = [...prescription].sort((a, b) => {
+    const dateA = new Date(a.dateOfPrescription).getTime();
+    const dateB = new Date(b.dateOfPrescription).getTime();
     return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
   });
 
-  if(loading == true){
-    return <><h1>Loading....</h1></>
+  if (loading) {
+    return <><h1>Loading....</h1></>;
   }
 
-  if(prescription.length === 0){
-    return <><h1>No prescription to show</h1></>
+  if (prescription.length === 0) {
+    return <><h1>No prescription to show</h1></>;
   }
 
   return (
@@ -99,9 +91,9 @@ console.log(data);
           {sortedData.map((item, index) => (
             <TableRow key={index}>
               <TableCell className="font-bold text-[#525252]">
-                {item.doctor}
+                {item.doctorInformation}
               </TableCell>
-              <TableCell className="text-[#525252]">{item.date}</TableCell>
+              <TableCell className="text-[#525252]">{item.dateOfPrescription}</TableCell>
               <TableCell
                 className="text-right pr-10 text-[#005F92] font-medium cursor-pointer"
                 onClick={() => setSelectedPrescription(item)}
@@ -114,11 +106,16 @@ console.log(data);
       </Table>
 
       {/* Modal for prescription details */}
-      <PrescriptionModal
-        isOpen={!!selectedPrescription}
-        onClose={() => setSelectedPrescription(null)}
-        prescription={selectedPrescription}
-      />
+      {selectedPrescription && (
+        <PrescriptionModal
+          isOpen={!!selectedPrescription}
+          onClose={() => setSelectedPrescription(null)}
+          prescription={{
+            ...selectedPrescription,
+            meds: selectedPrescription.inscription,
+          }}
+        />
+      )}
     </>
   );
 };

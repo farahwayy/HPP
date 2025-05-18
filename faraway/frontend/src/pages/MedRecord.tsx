@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Header from '../components/Header';
 import Nav from '../components/Nav';
 import useDecodedToken from '../utils/DecodeToken';
@@ -7,16 +7,21 @@ import Filter from '@/components/Filter';
 import { sortOptions, typeOptions } from '@/utils/filterOptions';
 import MedicalTable from '@/components/MedTable';
 import MedResults from '@/components/MedResults';
+import ChatBot from '@/components/ChatBot';
+
+interface MedicalRecord {
+  id: string;
+  type: string;
+  date: string;
+  status: string;
+  [key: string]: string | number | boolean;
+}
 
 const MedicalRecord = () => {
-  const [sortOrder, setSortOrder] = useState("newest");
-  const [typeFilter, setTypeFilter] = useState("all");
-  const [selectedRecord, setSelectedRecord] = useState(null);
+  const [sortOrder, setSortOrder] = useState<string>('newest');
+  const [typeFilter, setTypeFilter] = useState<string>('all');
+  const [selectedRecord, setSelectedRecord] = useState<MedicalRecord | null>(null);
   const patient = useDecodedToken();
-
-  const handleViewDetails = (item) => {
-    setSelectedRecord(item);
-  };
 
   const handleBack = () => {
     setSelectedRecord(null);
@@ -29,7 +34,7 @@ const MedicalRecord = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <header>
-        <Header />
+        <Header user={patient} />
       </header>
       <div className="flex flex-1">
         <Nav user={patient} />
@@ -41,7 +46,7 @@ const MedicalRecord = () => {
                 <SearchBar
                   title="Medical Records"
                   description="View and manage your health information"
-                  data="Records"
+                  data={[]}
                 />
                 <div className="flex flex-col justify-between p-15">
                   <div className="flex-col">
@@ -66,9 +71,8 @@ const MedicalRecord = () => {
                   </div>
                   <div>
                     <MedicalTable
-                      sortOrder={sortOrder}
+                      sortOrder={sortOrder as 'newest' | 'oldest'}
                       typeFilter={typeFilter}
-                      onViewDetails={handleViewDetails} // <-- callback passed
                     />
                   </div>
                 </div>
@@ -76,6 +80,7 @@ const MedicalRecord = () => {
             )}
           </div>
       </div>
+      <ChatBot />
     </div>
   );
 };

@@ -1,16 +1,31 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Table,
   TableHeader,
-  TableBody,
   TableRow,
   TableHead,
-  TableCell,
 } from "@/components/ui/table";
 import { ArrowLeft } from "lucide-react";
 
-const MedResults = ({ onBack, PatientData }) => {
+interface PatientDataType {
+  title?: string;
+  date?: string;
+  id?: string;
+  doctor?: string;
+  dep?: string;
+  type?: string;
+  status?: string;
+  Summary?: string;
+  DocNotes?: string;
+  // add more fields as needed
+}
 
+interface MedResultsProps {
+  onBack: () => void;
+  PatientData: PatientDataType;
+}
+
+const MedResults: React.FC<MedResultsProps> = ({ onBack, PatientData }) => {
   return (
     <div>
         {/* HEADER PART */}
@@ -101,6 +116,5 @@ const MedResults = ({ onBack, PatientData }) => {
     
   );
 };
-
 
 export default MedResults;

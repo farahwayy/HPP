@@ -2,8 +2,13 @@ import React, { useState, useEffect } from 'react';
 import LOGO from '../assets/Group 3.png';
 import placeholderProfile from '../assets/placeholderProfile.png';
 import { useNavigate } from 'react-router-dom';
+import { User } from '@/types';
 
-const Header = ({ user }) => {
+interface HeaderProps {
+  user: User;
+}
+
+const Header: React.FC<HeaderProps> = ({ user }) => {
   const [currentTime, setCurrentTime] = useState('');
   const [currentDate, setCurrentDate] = useState('');
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -45,16 +50,17 @@ const Header = ({ user }) => {
           <h3>Time <span className="font-bold">{currentTime}</span></h3>
         </div>
         <div className="relative">
-          <img
-            src={placeholderProfile}
-            alt="placeholderProfile"
-            className="max-w-13 cursor-pointer"
-            onClick={toggleDropdown}
-          />
+          <div className="flex items-center gap-2 cursor-pointer" onClick={toggleDropdown}>
+            <img
+              src={placeholderProfile}
+              alt={user.name}
+              className="max-w-13"
+            />
+          </div>
           {dropdownVisible && (
             <div className="absolute mt-2 right-0 bg-[#005F92] shadow-lg p-4 rounded-md w-48 text-white z-10">
               <button
-                onClick={() => navigate('/profile' )}
+                onClick={() => navigate('/profile')}
                 className='w-full text-left py-2 px-4 hover:bg-[#00446b] hover:cursor-pointer'
               >
                 Profile

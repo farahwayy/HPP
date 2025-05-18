@@ -1,8 +1,9 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons' // ✅ correct icon import
+import { SearchBarProps } from '@/types'
 
-const SearchBar = ({
+const SearchBar: React.FC<SearchBarProps> = ({
     title,
     description,
     data // search data
@@ -17,7 +18,7 @@ const SearchBar = ({
             <FontAwesomeIcon icon={faMagnifyingGlass} className="text-[#181818]" />
             <input 
             className="w-full outline-none placeholder:text-[#AEAEAE] bg-[#F0F0F0]"
-            placeholder={`Search ${data}...`}
+            placeholder={`Search ${data?.length ? data.length : ''}...`}
             />
       </div>
     </div>

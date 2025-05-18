@@ -2,20 +2,25 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import Nav from '../components/Nav';
 import { Calendar } from "@/components/ui/calendar";
+import ChatBot from '@/components/ChatBot';
+import { User } from '@/types';
 
-const Landing = ({ user }) => {
-  const [patient, setPatient] = useState(user);
+interface LandingProps {
+  user: User;
+}
+
+const Landing: React.FC<LandingProps> = ({ user }) => {
   const [date, setDate] = useState<Date | undefined>(new Date());
 
-  const firstName = patient.name.split(' ')[0];
+  const firstName = user.name.split(' ')[0];
 
   return (
     <div className='flex flex-col min-h-screen bg-gray-50'>
       <header>
-        <Header />
+        <Header user={user} />
       </header>
       <div className='flex flex-1'>
-        <Nav user={patient} />
+        <Nav user={user} />
         <main className='flex-1 p-8'>
           {/* Hospital Image */}
           <section className="flex-1">
@@ -139,6 +144,7 @@ const Landing = ({ user }) => {
           </section>
         </main>
       </div>
+      <ChatBot />
     </div>
   );
 };
