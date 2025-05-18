@@ -69,7 +69,7 @@ app.use(cors());
 passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: `http://localhost:${port}/login/callback`
+        callbackURL: `https://hppbackend.onrender.com/login/callback`
     },
     function (accessToken, refreshToken, profile, cb) {
         const user = {
