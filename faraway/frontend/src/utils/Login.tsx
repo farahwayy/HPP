@@ -10,9 +10,9 @@ const Login = () => {
     if (token) {
       localStorage.setItem('token', token);
       console.log('Stored Successfully')
-      window.location.href='http://localhost:5173/landing'
+      window.location.href='https://hppbackend.onrender.com/landing'
     }else{
-        window.location.href='http://localhost:5173/'
+        window.location.href='https://hppbackend.onrender.com/'
     }
   },[])
 
