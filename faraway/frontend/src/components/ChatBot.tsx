@@ -13,17 +13,20 @@ const ChatBot = () => {
   useEffect(() => {
     const getCRMResponse = async () => {
       try {
-        const response = await axios.get('https://crm-pkht.onrender.com/');
+        const response = await axios.post('http://localhost:7000/chat', {
+          message: "Hello"
+        });
         setCrmResponse(response.data);
-        console.log('CRM API Response:', response.data);
+        console.log('Backend API Response:', response.data);
       } catch (err) {
-        console.error('Error connecting to CRM API:', err);
-        setCrmResponse('Error connecting to CRM API');
+        console.error('Error connecting to backend API:', err);
+        setCrmResponse('Error connecting to backend API');
       }
     };
 
     getCRMResponse();
   }, []);
+
 
   const sendMessage = async () => {
     if (!message.trim()) return;
@@ -32,13 +35,13 @@ const ChatBot = () => {
     setMessages(prev => [...prev, { text: message, isUser: true }]);
 
     try {
-      // Send message to CRM API
-      const response = await axios.post('https://crm-pkht.onrender.com/message', {
+      // Send message to backend API
+      const response = await axios.post('http://localhost:7000/chat', {
         message: message
       });
 
       // Add bot response to chat
-      setMessages(prev => [...prev, { text: response.data, isUser: false }]);
+      setMessages(prev => [...prev, { text: response.data.data.reply || 'No response', isUser: false }]);
     } catch (err) {
       console.error('Error sending message:', err);
       setMessages(prev => [...prev, { text: "Sorry, I couldn't process your message.", isUser: false }]);

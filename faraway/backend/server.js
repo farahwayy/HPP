@@ -55,11 +55,8 @@ getPatient()
 
 
 const port = process.env.PORT || 7000
-
-app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials: false,
-}));
+    app.use(express.json())
+app.use(cors());
 
 
 //Use method
@@ -269,6 +266,33 @@ app.get('/profile', (req,res) => {
     }
 })
 
+app.post('/chat', async (req, res) => {
+    const { message } = req.body;
+    console.log('Received message:', message);
+
+    try {
+        // Forward the message to the external chatbot API
+        const chatBotResponse = await axios.post('https://crm-pkht.onrender.com/chat', {
+            message: message
+        });
+
+        // Log and return the response from the external API
+        console.log('Chatbot API response:', chatBotResponse.data);
+
+        res.json({
+            message: 'success',
+            data: chatBotResponse.data,
+            code: 'success'
+        });
+    } catch (error) {
+        console.error('Error forwarding to chatbot API:', error.message);
+        res.status(500).json({
+            message: 'error',
+            error: error.message,
+            code: 'error'
+        });
+    }
+});
 
 
 //listen methods
