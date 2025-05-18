@@ -139,7 +139,7 @@ app.get('/login/callback', passport.authenticate('google', {
             token,
             user
         } = req.user;
-        res.redirect(`http://localhost:5173/login?token=${token}`);
+        res.redirect(`https://hppbackend.onrender.com/login?token=${token}`);
     }
 )
 
