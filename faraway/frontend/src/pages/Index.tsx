@@ -58,7 +58,7 @@ const Index = () => {
           <Button 
           text={'Sign in with Google'} 
           icon={GOOGLE} 
-          onClick={() => window.location.href='http://localhost:7000/login/google'}
+          onClick={() => window.location.href='https://hppbackend.onrender.com/login/google'}
           className='bg-white cursor-pointer p-3 rounded-2xl' 
           /> 
         </div>
