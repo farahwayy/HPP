@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import Nav from '../components/Nav';
 import { Calendar } from "@/components/ui/calendar";
+import ChatBot from '@/components/ChatBot';
 
 const Landing = ({ user }) => {
   const [patient, setPatient] = useState(user);
@@ -139,6 +140,7 @@ const Landing = ({ user }) => {
           </section>
         </main>
       </div>
+      <ChatBot />
     </div>
   );
 };

@@ -6,6 +6,7 @@ import SearchBar from '../components/SearchBar';
 import Filter from '../components/Filter';
 import PrescriptionTable from '@/components/PrescripTable';
 import { sortOptions } from '@/utils/filterOptions';
+import ChatBot from '@/components/ChatBot';
 
 const Prescriptions = () => {
   const patient = useDecodedToken();
@@ -45,6 +46,7 @@ const Prescriptions = () => {
           </div>
         </div>
       </main>
+      <ChatBot />
     </div>
   );
 };
