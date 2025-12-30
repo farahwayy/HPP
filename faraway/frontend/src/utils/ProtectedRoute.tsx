@@ -18,7 +18,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     useEffect(() => {
         const VerifyToken = async () => {
           try {
-            const res = await axios.get('http://localhost:7000/verify', {
+            const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/verify`, {
               headers: {
                 Authorization: `Bearer ${token}`, 
               },

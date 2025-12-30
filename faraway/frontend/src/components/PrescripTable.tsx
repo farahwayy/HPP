@@ -44,7 +44,7 @@ const PrescripTable: React.FC<PrescripTableProps> = ({ sortOrder }) => {
           setLoading(false);
           return;
         }
-        const data = await axios.get('http://localhost:7000/prescription', {
+        const data = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/prescription`, {
           params: { email }
         });
         setPrescription(data.data.data);

@@ -12,8 +12,14 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       className={`flex items-center gap-2 ${className}`}
     >
-      {icon && <span className="w-5 h-5">{icon}</span>}
-      {text}
+      {icon && typeof icon === 'string' && (
+        <img
+          src={icon}
+          alt="icon"
+          className="w-5 h-5"
+        />
+      )}
+      <span>{text}</span>
     </button>
   )
 }

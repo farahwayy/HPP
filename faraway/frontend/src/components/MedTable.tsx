@@ -38,7 +38,7 @@ const MedicalTable: React.FC<MedTableProps> = ({ sortOrder, typeFilter }) => {
     setLoading(true);
     const fetchData = async () => {
       try {
-        const data = await axios.get('http://localhost:7000/patientData', {
+        const data = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/patientData`, {
           params: { email }
         });
         setPatient(data.data.data);
