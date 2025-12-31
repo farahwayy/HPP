@@ -78,7 +78,7 @@ passport.use(new GoogleStrategy(
   {
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: `https://hppbackend.onrender.com//login/callback`
+    callbackURL: `https://hppbackend.onrender.com/login/callback`
   },
   (accessToken, refreshToken, profile, cb) => {
     try {
